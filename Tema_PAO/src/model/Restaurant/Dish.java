@@ -11,7 +11,7 @@ public class Dish {
     private float price;
     private String description;
 
-    public Dish(String name, ArrayList<Ingredient> ingredients, float price){
+    public Dish(String name, ArrayList<Ingredient> ingredients, float price, String description){
         global_id += 1;
         this.id = global_id;
         this.name = name;

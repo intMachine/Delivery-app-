@@ -14,6 +14,8 @@ import static java.lang.Integer.parseInt;
 
 public class customerService {
 
+    private LoginService returnLogin = LoginService.getInstance();
+
     private static customerService instance = null;
 
     private customerService(){}
@@ -72,6 +74,14 @@ public class customerService {
                     
 
                     break;
+                case 2:
+                    returnLogin.Main(app);
+                case 3:
+                    app.getCustomers().remove(user);
+                    System.out.println("Acc deleted");
+                    returnLogin.Main(app);
+                default:
+                    System.out.println("Choose a valid option");
             }
         }
     }
