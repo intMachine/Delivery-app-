@@ -91,7 +91,11 @@ public class User {
         this.address = address;
     }
 
-    public void addOrder(Order order){
-        this.orders.add(order);
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 }

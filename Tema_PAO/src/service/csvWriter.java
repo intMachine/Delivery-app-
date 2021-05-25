@@ -86,7 +86,7 @@ public class csvWriter {
             System.out.println("Writing user");
             BufferedWriter bufferedWriter = Files.newBufferedWriter(paths.get("Driver"), StandardOpenOption.APPEND);
             String output = driver.getId() + "," +
-                    driver.getIncome() + "," +
+                    driver.getAge() + "," +
                     driver.getIncomeMultiplier();
             bufferedWriter.write(output + "\n");
             bufferedWriter.flush();

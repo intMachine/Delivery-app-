@@ -9,11 +9,11 @@ import model.User.User;
 import java.util.ArrayList;
 
 public class App {
-    private ArrayList<Restaurant> restaurants;
-    private ArrayList<User> users;
-    private ArrayList<Customer> customers;
-    private ArrayList<Driver> driver;
-    private ArrayList<Order> orders;
+    private ArrayList<Restaurant> restaurants = new ArrayList<>();
+    private ArrayList<User> users =  new ArrayList<>();
+    private ArrayList<Customer> customers = new ArrayList<>();
+    private ArrayList<Driver> driver = new ArrayList<>();
+    private ArrayList<Order> orders = new ArrayList<>();
 
     public ArrayList<User> getUsers() {
         return users;
@@ -23,9 +23,9 @@ public class App {
         this.users = users;
     }
 
-    public ArrayList<Restaurant> getRestaurants() {
-        return restaurants;
-    }
+        public ArrayList<Restaurant> getRestaurants() {
+            return restaurants;
+        }
 
     public void setRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;

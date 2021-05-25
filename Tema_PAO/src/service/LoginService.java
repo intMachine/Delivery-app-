@@ -1,29 +1,30 @@
 package service;
 
+import model.User.*;
 import model.App.App;
-import model.User.Customer;
-import model.User.Driver;
-import model.User.User;
+//import model.User.Customer;
+//import model.User.Driver;
+//import model.User.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class LoginService {
+public class loginService {
 
-    private static LoginService instance = null;
+    private static loginService instance = null;
+    private final auditService audit = auditService.getInstance();
 
-    private LoginService(){}
+    private loginService(){}
 
-    public static LoginService getInstance(){
+    public static loginService getInstance(){
         if (instance == null) {
-            instance = new LoginService();
+            instance = new loginService();
         }
         return instance;
     }
 
-    Scanner fetch = new Scanner(System.in);
+    protected static Scanner fetch = new Scanner(System.in);
     int select;
 
     public void Main(App app){
@@ -42,19 +43,24 @@ public class LoginService {
                     break;
                 case 1:
                     for(;;){
+
                         System.out.println("Email");
                         String email = fetch.next();
                         System.out.println("Password");
                         String password = fetch.next();
+//                        System.out.println(email);
+//                        System.out.println(password);
                         User user = this.findUser(email, password, app.getUsers());
+                        audit.write("Login - "+ user.getUsername());
                         if (user == null){
                             System.out.println("Try again.");
                             break;
                         }
                         else if (user instanceof Customer){
-//                        CustomerService customerService = new CustomerService();
-//                        customerService.Main(app,(Customer) user);
-                            break;
+//                            System.out.println("A");
+                        customerService customerService = service.customerService.getInstance();
+                        customerService.Main(app, (Customer) user);
+
                         }
                         else if (user instanceof Driver){
                             //CustomerService customerService = new CustomerService();
@@ -80,6 +86,9 @@ public class LoginService {
             if (user.getPassword().equals(password) && user.getEmail().equals(email)){ //
                 return user;
             }
+//            else {
+//                System.out.println("Acest cont nu există în baza de date");
+//            }
         }
         return null;
     }
@@ -100,6 +109,8 @@ public class LoginService {
 
         Customer customer = new Customer(firstname, lastname, email, password, phone, address);
         app.getCustomers().add(customer);
+        app.getUsers().add(customer);
+//        app.getCustomers().forEach(System.out::println);
     }
 
     private void signUpDriver(App app){
@@ -115,9 +126,12 @@ public class LoginService {
         String phone = fetch.next();
         System.out.println("Address");
         String address = fetch.next();
+        System.out.println("Age");
+        int age = Integer.parseInt(fetch.next());
 
-        Driver driver = new Driver(firstname, lastname, email, password, phone, address);
+        Driver driver = new Driver(firstname, lastname, email, password, phone, address, age);
         app.getDriver().add(driver);
+        app.getUsers().add(driver);
     }
 
 }

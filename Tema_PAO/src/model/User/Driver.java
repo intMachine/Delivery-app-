@@ -3,12 +3,12 @@ package model.User;
 public class Driver extends User {
 
     private int incomeMultiplier;
-    private int income;
+    private int age;
 
-    public Driver(String firstname, String lastname, String email, String password, String phone, String address)
+    public Driver(String firstname, String lastname, String email, String password, String phone, String address, int age)
     {
         super(firstname, lastname, email, password, phone, address);
-        this.income = income;
+        this.age = age;
         this.incomeMultiplier = incomeMultiplier;
     }
 
@@ -16,7 +16,7 @@ public class Driver extends User {
     public String   toString() {
         return "Driver{" +
                 "incomeMultiplier=" + incomeMultiplier +
-                ", income=" + income +
+                ", age=" + age +
                 ", id=" + id +
                 ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
@@ -33,14 +33,17 @@ public class Driver extends User {
     }
 
     public void setIncomeMultiplier(int incomeMultiplier) {
-        this.incomeMultiplier = incomeMultiplier;
+        if ( age > 60){
+            this.incomeMultiplier = 2;
+        }
+        else this.incomeMultiplier = 1;
     }
 
-    public int getIncome() {
-        return income;
+    public int getAge() {
+        return age;
     }
 
-    public void setIncome(int income) {
-        this.income = income;
+    public void setAge(int income) {
+        this.age = income;
     }
 }

@@ -14,7 +14,8 @@ import static java.lang.Integer.parseInt;
 
 public class customerService {
 
-    private LoginService returnLogin = LoginService.getInstance();
+    private loginService returnLogin = loginService.getInstance();
+    private auditService audit = auditService.getInstance();
 
     private static customerService instance = null;
 
@@ -35,6 +36,7 @@ public class customerService {
             System.out.println("1. Create order");
             System.out.println("2. Logout");
             System.out.println("3. Delete account");
+            System.out.println("4. See orders");
             System.out.println("0. Exit");
             int option = fetch.nextInt();
 
@@ -58,7 +60,7 @@ public class customerService {
                     }
 
                     ArrayList<Dish> itemsToOrder = new ArrayList<>();
-                    System.out.println("Select what items you want to order by choosing their respective number \n For example : 1,3,5 \n");
+                    System.out.println("Select desired items\n");
                     String response = fetch.next();
                     String[] choices = response.split(",");
                     for (String c : choices) {
@@ -66,10 +68,11 @@ public class customerService {
                         itemsToOrder.add(restaurantItems.get(productNumber));
                     }
 
-                    Driver orderDriver = new Driver("Denis", "Dobrica", "dublednr1@gmail.com", "pwtest123!", "0722156430", "Honolulu");
+                    Driver orderDriver = new Driver("Denis", "Dobrica", "dublednr1@gmail.com", "pwtest123!", "0722156430", "Honolulu", 42);
 
                     Order order = new Order(user, orderDriver);
 //                    to add items
+                    audit.write("Create order - " + user.getUsername());
                     app.getOrders().add(order);
                     
 
@@ -80,6 +83,8 @@ public class customerService {
                     app.getCustomers().remove(user);
                     System.out.println("Acc deleted");
                     returnLogin.Main(app);
+                case 4:
+                    System.out.println(app.getOrders());
                 default:
                     System.out.println("Choose a valid option");
             }
